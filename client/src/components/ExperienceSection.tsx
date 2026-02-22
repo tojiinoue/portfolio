@@ -32,6 +32,23 @@ const experiences = [
   },
 ];
 
+const academicExperiences = [
+  {
+    period: "2024.04 〜 2025.01",
+    institution: "千葉工業大学 藤原研究室",
+    role: "卒業研究員",
+    type: "RESEARCH",
+    color: "#bc8cff",
+    items: [
+      {
+        title: "Web3トークン配布システムにおける報酬が学習意欲に及ぼす影響の研究",
+        desc: "ブロックチェーン（Polygon）とスマートコントラクトを活用した授業用トークン配布システムを改修・運用。実際の講義（情報理論）に導入し、38名の学生データを収集。因果推論（傾向スコアマッチング）を用いて、Web3報酬型ゲーミフィケーションが学習意欲・成績に与える効果を定量的に評価・分析した。",
+        tags: ["Web3", "Blockchain", "Polygon", "因果推論", "データ分析", "MetaMask"],
+      },
+    ],
+  },
+];
+
 const businessExperiences = [
   {
     title: "コミュニティ運営",
@@ -166,6 +183,83 @@ export default function ExperienceSection() {
                           <p className="text-[#8b949e] text-sm leading-relaxed mb-3">
                             {item.desc}
                           </p>
+                          <div className="flex flex-wrap gap-2">
+                            {item.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="text-xs font-mono px-2 py-0.5 bg-[#1c2128] border border-[#30363d] rounded text-[#8b949e]"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Academic Research Experience */}
+        <div
+          className={`mb-16 transition-all duration-700 delay-300 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h3 className="text-xl font-bold font-mono text-[#e6edf3] mb-6">
+            <span className="text-[#bc8cff]">//</span> Academic Research
+          </h3>
+          {academicExperiences.map((exp) => (
+            <div key={exp.institution} className="relative">
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-[#30363d] ml-4 hidden sm:block" />
+              <div className="sm:pl-12">
+                <div className="flex flex-wrap items-start gap-4 mb-6">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono font-bold absolute left-0 hidden sm:flex"
+                    style={{
+                      backgroundColor: `${exp.color}20`,
+                      border: `2px solid ${exp.color}`,
+                      color: exp.color,
+                    }}
+                  >
+                    02
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3 mb-1">
+                      <h3 className="text-xl font-bold font-mono text-[#e6edf3]">
+                        {exp.institution}
+                      </h3>
+                      <span
+                        className="text-xs font-mono px-2 py-0.5 rounded"
+                        style={{
+                          color: exp.color,
+                          backgroundColor: `${exp.color}15`,
+                          border: `1px solid ${exp.color}40`,
+                        }}
+                      >
+                        {exp.type}
+                      </span>
+                    </div>
+                    <p className="text-[#8b949e] font-mono text-sm">
+                      {exp.role} | {exp.period}
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  {exp.items.map((item, i) => (
+                    <div
+                      key={item.title}
+                      className="bg-[#161b22] border border-[#30363d] rounded-lg p-5 hover:border-[#bc8cff]/30 transition-all duration-200"
+                      style={{ transitionDelay: `${i * 100}ms` }}
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-[#bc8cff] font-mono text-sm mt-0.5 shrink-0">▶</span>
+                        <div>
+                          <h4 className="text-[#e6edf3] font-mono font-bold text-sm mb-2">{item.title}</h4>
+                          <p className="text-[#8b949e] text-sm leading-relaxed mb-3">{item.desc}</p>
                           <div className="flex flex-wrap gap-2">
                             {item.tags.map((tag) => (
                               <span

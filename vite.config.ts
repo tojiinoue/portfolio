@@ -152,11 +152,9 @@ function vitePluginManusDebugCollector(): Plugin {
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
-const isGHPages = process.env.DEPLOY_TARGET === "ghpages";
-
 export default defineConfig({
   plugins,
-  base: isGHPages ? "/portfolio/" : "/",
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
