@@ -112,7 +112,7 @@ export default function AboutSection() {
               </div>
               <div className="mt-5 text-center sm:text-left">
                 <p className="text-[#e6edf3] font-mono font-bold text-lg">Toji Inoue</p>
-                <p className="text-[#8b949e] font-mono text-sm mt-0.5">井上 とうじ</p>
+                <p className="text-[#8b949e] font-mono text-sm mt-0.5">井上 登司</p>
               </div>
             </div>
 
