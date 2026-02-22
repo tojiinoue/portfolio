@@ -1,9 +1,11 @@
 /*
  * AboutSection - Terminal Noir Design
- * Professional summary with terminal-style card layout
+ * Professional summary with profile photo, terminal-style card layout
  */
 
 import { useEffect, useRef, useState } from "react";
+
+const PROFILE_PHOTO = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663371715815/TPORuIpgxeAYqrei.jpg";
 
 const certifications = [
   { name: "応用情報技術者試験", abbr: "AP", color: "#58a6ff" },
@@ -76,12 +78,44 @@ export default function AboutSection() {
         </div>
 
         <div className="grid lg:grid-cols-5 gap-12">
-          {/* Left: Profile */}
+          {/* Left: Profile photo + card */}
           <div
             className={`lg:col-span-2 transition-all duration-700 delay-200 ${
               visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
             }`}
           >
+            {/* Profile Photo */}
+            <div className="mb-6 flex flex-col items-center sm:items-start">
+              <div className="relative">
+                {/* Glow ring */}
+                <div
+                  className="absolute -inset-1 rounded-xl opacity-60"
+                  style={{
+                    background: "linear-gradient(135deg, #58a6ff, #3fb950)",
+                    filter: "blur(6px)",
+                  }}
+                />
+                <div className="relative w-48 h-56 sm:w-52 sm:h-60 rounded-xl overflow-hidden border-2 border-[#30363d]">
+                  <img
+                    src={PROFILE_PHOTO}
+                    alt="Toji Inoue"
+                    className="w-full h-full object-cover object-top"
+                  />
+                  {/* Subtle overlay for terminal aesthetic */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/40 to-transparent" />
+                </div>
+                {/* Status badge */}
+                <div className="absolute -bottom-2 -right-2 flex items-center gap-1.5 bg-[#161b22] border border-[#30363d] rounded-full px-3 py-1">
+                  <div className="w-2 h-2 rounded-full bg-[#3fb950] animate-pulse" />
+                  <span className="text-[#3fb950] font-mono text-xs">Available</span>
+                </div>
+              </div>
+              <div className="mt-5 text-center sm:text-left">
+                <p className="text-[#e6edf3] font-mono font-bold text-lg">Toji Inoue</p>
+                <p className="text-[#8b949e] font-mono text-sm mt-0.5">井上 とうじ</p>
+              </div>
+            </div>
+
             {/* Terminal card */}
             <div className="bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
               {/* Terminal title bar */}
@@ -100,12 +134,6 @@ export default function AboutSection() {
               <div className="p-5 font-mono text-sm">
                 <div className="text-[#e3b341]">{"{"}</div>
                 <div className="pl-4 space-y-1.5 mt-1">
-                  <div>
-                    <span className="text-[#bc8cff]">"name"</span>
-                    <span className="text-[#e6edf3]">: </span>
-                    <span className="text-[#a5d6ff]">"Toji Inoue"</span>
-                    <span className="text-[#e6edf3]">,</span>
-                  </div>
                   <div>
                     <span className="text-[#bc8cff]">"role"</span>
                     <span className="text-[#e6edf3]">: </span>

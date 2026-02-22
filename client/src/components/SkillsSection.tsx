@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const SKILLS_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/O90UeRw8L08i0k8dGdipgR/sandbox/04tQmglMxoI640HMZesHPm-img-3_1771729273000_na1fn_c2tpbGxzLXZpc3VhbA.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvTzkwVWVSdzhMMDhpMGs4ZEdkaXBnUi9zYW5kYm94LzA0dFFtZ2xNeG9JNjQwSE1aZXNIUG0taW1nLTNfMTc3MTcyOTI3MzAwMF9uYTFmbl9jMnRwYkd4ekxYWnBjM1ZoYkEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cgJRS~1PGXJiiBo-DKgYqZ03thU5KIhh8yIbxHg~mAj3DKb6qMGQUxt6ltDbQO0lNP8Wcb5Q3qbvR8Nd2JS~wcmxAnU5HuBHwo2ys0LXiHjwkCz86QFOk1wjTo5BtHAIDGvk41BRRIyOgsCIbPg9SPlcuIefV87gVG5o~9CGF72bnGeiurlYQl6ZVwRzDopP7YA2JLUxu~PvAivhN2hTJKF9p0kLTJW-NGFjUqgJpVxjVSzgXKtgvI5g~rKGaTTOiu6fGsg1f4a7xxcGl0yys-rHhr5wq3FRCxUjSo-kzWn8pbAROcTqERrFiUMkyzUZVKyP~FR3krPK-teCksvtGQ__";
+
 
 const skillCategories = [
   {
@@ -168,18 +168,37 @@ export default function SkillsSection() {
             </div>
           </div>
 
-          {/* Visual */}
+          {/* Code snippet card */}
           <div
             className={`transition-all duration-700 delay-400 ${
               visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
             }`}
           >
-            <div className="bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden h-full min-h-[300px]">
-              <img
-                src={SKILLS_IMG}
-                alt="Tech Skills Network"
-                className="w-full h-full object-cover opacity-80"
-              />
+            {/* Code snippet */}
+            <div className="bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 bg-[#1c2128] border-b border-[#30363d]">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-[#f78166]" />
+                  <div className="w-3 h-3 rounded-full bg-[#e3b341]" />
+                  <div className="w-3 h-3 rounded-full bg-[#3fb950]" />
+                </div>
+                <span className="text-[#8b949e] font-mono text-xs ml-2">recommend.py</span>
+              </div>
+              <div className="p-5 font-mono text-xs leading-relaxed">
+                <div><span className="text-[#bc8cff]">from</span> <span className="text-[#a5d6ff]">fastapi</span> <span className="text-[#bc8cff]">import</span> <span className="text-[#e6edf3]">FastAPI</span></div>
+                <div><span className="text-[#bc8cff]">import</span> <span className="text-[#a5d6ff]">pandas</span> <span className="text-[#bc8cff]">as</span> <span className="text-[#e6edf3]">pd</span></div>
+                <div className="mt-3"><span className="text-[#8b949e]"># GA4ログを取得・集計</span></div>
+                <div><span className="text-[#bc8cff]">def</span> <span className="text-[#3fb950]">get_recommendations</span><span className="text-[#e6edf3]">(</span><span className="text-[#e3b341]">user_id</span><span className="text-[#e6edf3]">: str):</span></div>
+                <div className="pl-4"><span className="text-[#e6edf3]">df = </span><span className="text-[#a5d6ff]">ga4_client</span><span className="text-[#e6edf3]">.fetch_logs(</span></div>
+                <div className="pl-8"><span className="text-[#e6edf3]">user_id=user_id</span></div>
+                <div className="pl-4"><span className="text-[#e6edf3]">)</span></div>
+                <div className="pl-4"><span className="text-[#8b949e]"># pandasで前処理</span></div>
+                <div className="pl-4"><span className="text-[#e6edf3]">result = df</span></div>
+                <div className="pl-6"><span className="text-[#e6edf3]">.groupby(</span><span className="text-[#a5d6ff]">'item_id'</span><span className="text-[#e6edf3]">)</span></div>
+                <div className="pl-6"><span className="text-[#e6edf3]">.agg(</span><span className="text-[#a5d6ff]">'count'</span><span className="text-[#e6edf3]">)</span></div>
+                <div className="pl-6"><span className="text-[#e6edf3]">.sort_values(ascending=</span><span className="text-[#3fb950]">False</span><span className="text-[#e6edf3]">)</span></div>
+                <div className="pl-4"><span className="text-[#bc8cff]">return</span> <span className="text-[#e6edf3]">result.head(</span><span className="text-[#3fb950]">10</span><span className="text-[#e6edf3]">)</span></div>
+              </div>
             </div>
 
             {/* Learning note */}
