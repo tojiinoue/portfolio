@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const KANJIKUN_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/O90UeRw8L08i0k8dGdipgR/sandbox/04tQmglMxoI640HMZesHPm-img-2_1771729292000_na1fn_cHJvamVjdC1rYW5qaWt1bg.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvTzkwVWVSdzhMMDhpMGs4ZEdkaXBnUi9zYW5kYm94LzA0dFFtZ2xNeG9JNjQwSE1aZXNIUG0taW1nLTJfMTc3MTcyOTI5MjAwMF9uYTFmbl9jSEp2YW1WamRDMXJZVzVxYVd0MWJnLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=m5ch22q5FCzreNYc6awoKIe~pFocLIV2G9HPl5PiQXpSNclZyG7SJZ6n1THtvmfSTmt2iN6OA~bVIWVHcgDwh~A9oFj2fr4Em-YkCCW6NZfPb6kyzauhLqbt3RVvKZnvlgHaXJYByKpYaVvaSCXS-4K5dGzNJSmrBzhAanTvDzHcIeu8yDHwF5z1Qg2KLc4ShkNRy3x8oPhKqx~8xIybFYAzPPPBVnPswNEFcpePwFSZ0g~~EMDJ~KuDnZU1jH5aG2aUo~czUzY28w-xuLdjG6B6mXmILBG1kfXcQ1kOA2aXGE-uneupyw7loBvrF5lwn4R1KNH9w0gjzDQJBd~V9Q__";
+const KANJIKUN_IMG = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663371715815/WhHYPTAtYBRSvNbh.png";
 
 const projects = [
   {
@@ -84,7 +84,7 @@ export default function ProjectsSection() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover min-h-[280px] opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    className="w-full h-full object-cover min-h-[280px] opacity-100 transition-opacity duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#161b22]/50 hidden lg:block" />
                   {/* Featured badge */}

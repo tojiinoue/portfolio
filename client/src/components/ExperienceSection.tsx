@@ -42,7 +42,7 @@ const businessExperiences = [
   },
   {
     title: "SNSマーケティング・動画編集",
-    period: "大学〜現在",
+    period: "大学時代",
     desc: "企業のSNSコンサルティング、YouTube/TikTokの動画編集スクールで習得したスキルを活かしたチームの組織化・ディレクションを経験。",
     icon: "🎬",
     color: "#e3b341",
