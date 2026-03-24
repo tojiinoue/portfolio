@@ -207,8 +207,8 @@ export default function SkillsSection() {
                 // currently learning
               </p>
               <p className="text-[#e6edf3] text-sm">
-                AWS SAA（Solutions Architect Associate）を学習中。
-                クラウドアーキテクチャの設計力を強化しています。
+                AWS SAA（Solutions Architect Associate）に合格。
+                現在は DVA と SAP の合格に向けて学習を進めています。
               </p>
             </div>
           </div>

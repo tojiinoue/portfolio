@@ -128,7 +128,7 @@ export default function HeroSection() {
             <p className="text-[#8b949e] text-base sm:text-lg leading-relaxed font-sans">
               「技術 × AI × ビジネス」を横断し、実戦的な価値を生む新卒1年目のエンジニア。
               <br />
-              <span className="text-[#e6edf3]">仕様駆動開発（cc-sdd）</span>を武器に、
+              <span className="text-[#e6edf3]">仕様駆動開発</span>を武器に、
               AIと共創しながら保守性の高いシステムを高速で構築します。
             </p>
           </div>
@@ -137,7 +137,7 @@ export default function HeroSection() {
           <div className="flex flex-wrap gap-6 mb-10">
             {[
               { label: "Zenn Articles", value: "7", color: "#3fb950" },
-              { label: "Certifications", value: "3", color: "#58a6ff" },
+              { label: "Certifications", value: "4", color: "#58a6ff" },
               { label: "Projects", value: "5+", color: "#bc8cff" },
               { label: "Languages", value: "3", color: "#e3b341" },
             ].map((stat) => (

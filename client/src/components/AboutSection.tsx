@@ -11,13 +11,14 @@ const certifications = [
   { name: "応用情報技術者試験", abbr: "AP", color: "#58a6ff" },
   { name: "基本情報技術者試験", abbr: "FE", color: "#3fb950" },
   { name: "AWS Certified Cloud Practitioner", abbr: "CLF", color: "#e3b341" },
+  { name: "AWS Certified Solutions Architect - Associate", abbr: "SAA", color: "#f78166" },
 ];
 
 const highlights = [
   {
     icon: "🤖",
     title: "AI × 仕様駆動開発",
-    desc: "cc-sddを武器にAIと共創。仕様から実装までを高速化し、保守性の高いシステムを構築。",
+    desc: "仕様駆動開発を武器にAIと共創。仕様から実装までを高速化し、保守性の高いシステムを構築。",
     color: "#58a6ff",
   },
   {
@@ -222,13 +223,13 @@ export default function AboutSection() {
             <div className="mb-8">
               <p className="text-[#e6edf3] text-base leading-relaxed">
                 2025年新卒入社のシステムエンジニア。
-                <span className="text-[#58a6ff]">「仕様駆動開発（cc-sdd）」</span>
+                <span className="text-[#58a6ff]">「仕様駆動開発」</span>
                 を武器に、AIと共創しながら保守性の高いシステムを高速で構築することを得意としています。
               </p>
               <p className="text-[#8b949e] text-base leading-relaxed mt-4">
                 技術だけでなく、400名規模のコミュニティ運営やSNSコンサルの経験から、
                 「ビジネス上の課題を技術でどう解決するか」という視点を常に持ち、
-                GA4を用いたデータ分析やAIによる業務自動化を推進しています。
+                AIによる業務効率化を推進しています。
               </p>
             </div>
 
