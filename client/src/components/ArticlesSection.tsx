@@ -7,6 +7,16 @@ import { useEffect, useRef, useState } from "react";
 
 const articles = [
   {
+    title: "Manusでポートフォリオサイトを作ってみた。AIでどこまで実用になるのか検証した話",
+    url: "https://zenn.dev/toji_inoue/articles/c3d13d2cc97604",
+    emoji: "🛠️",
+    type: "TECH",
+    date: "2026/03/25",
+    likes: 0,
+    tags: ["AI", "ポートフォリオ", "Manus", "サイト制作"],
+    color: "#58a6ff",
+  },
+  {
     title: "【個人開発】cc-sdd × OpenAI Codexで仕様駆動開発！飲み会管理アプリ「幹事くん」を爆速リリースした話",
     url: "https://zenn.dev/toji_inoue/articles/3eb730104c86ee",
     emoji: "😎",
@@ -115,7 +125,7 @@ export default function ArticlesSection() {
           </h2>
           <div className="mt-3 h-px w-16 bg-gradient-to-r from-[#58a6ff] to-transparent" />
           <p className="mt-4 text-[#8b949e] text-sm">
-            「AI時代の保守」「仕様駆動開発の実践」をテーマに計7本の記事を執筆。
+            「AI時代の保守」「仕様駆動開発の実践」をテーマに計8本の記事を執筆。
           </p>
         </div>
 
