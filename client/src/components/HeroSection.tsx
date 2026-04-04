@@ -136,7 +136,7 @@ export default function HeroSection() {
           {/* Stats */}
           <div className="flex flex-wrap gap-6 mb-10">
             {[
-              { label: "Zenn Articles", value: "7", color: "#3fb950" },
+              { label: "Zenn Articles", value: "8", color: "#3fb950" },
               { label: "Certifications", value: "4", color: "#58a6ff" },
               { label: "Projects", value: "5+", color: "#bc8cff" },
               { label: "Languages", value: "3", color: "#e3b341" },
