@@ -9,7 +9,7 @@ const experiences = [
   {
     period: "2025.04 〜 現在",
     company: "株式会社パソナ",
-    role: "システムエンジニア（新卒1年目）",
+    role: "バックエンドエンジニア（新卒2年目）",
     type: "FULL-TIME",
     color: "#58a6ff",
     items: [

@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 const HERO_BG = "https://private-us-east-1.manuscdn.com/sessionFile/O90UeRw8L08i0k8dGdipgR/sandbox/04tQmglMxoI640HMZesHPm-img-1_1771729276000_na1fn_aGVyby1iZw.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvTzkwVWVSdzhMMDhpMGs4ZEdkaXBnUi9zYW5kYm94LzA0dFFtZ2xNeG9JNjQwSE1aZXNIUG0taW1nLTFfMTc3MTcyOTI3NjAwMF9uYTFmbl9hR1Z5YnkxaVp3LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=UbNbX6WGnWAz93dRC9Fu2ojj56VK7RDogOm2eBzx0vH~KcNok-T2XKoWA2aA9AFvT1LPSisMDfUAfGKpqriOdTbmFBKdVTdva1DH9wfEUPx0e2BEYkQxrIFLyu73qFf2Q4xp5WX10o-5UKsl3nge-v0YMLHag4BiuU2Cr8sBCvbmMtjNNmqbk7cqWPJLkUnBIEvZIKj-0DxmqFFKlusLCuc6330WWElLLkRUlU7Qz1jDRDXUmPZukpKOgeo9S9kr8hSxLDvSA4LKTAO9JBpNc45GAKCCXpfBaVBtfk3WyKATAyRYE4EMLJh2zj0zICoSniYv-NasZExC9ysOvvUwMw__";
 
 const typewriterTexts = [
-  "Systems Engineer",
+  "Backend Engineer",
   "AI × 仕様駆動開発",
   "cc-sdd Practitioner",
   "Backend Developer",
@@ -126,7 +126,7 @@ export default function HeroSection() {
           {/* Description */}
           <div className="max-w-2xl mb-10">
             <p className="text-[#8b949e] text-base sm:text-lg leading-relaxed font-sans">
-              「技術 × AI × ビジネス」を横断し、実戦的な価値を生む新卒1年目のエンジニア。
+              AI駆動開発 × 仕様駆動開発で手戻りゼロの開発現場をつくるバックエンドエンジニア。
               <br />
               <span className="text-[#e6edf3]">仕様駆動開発</span>を武器に、
               AIと共創しながら保守性の高いシステムを高速で構築します。

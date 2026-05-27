@@ -118,7 +118,7 @@ export default function ArticlesSection() {
           }`}
         >
           <p className="text-[#3fb950] font-mono text-sm tracking-widest uppercase mb-2">
-            // 05. articles
+            // 06. articles
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold font-mono text-[#e6edf3]">
             Zenn Articles
