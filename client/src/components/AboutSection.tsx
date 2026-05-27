@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const PROFILE_PHOTO = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663371715815/TPORuIpgxeAYqrei.jpg";
+const PROFILE_PHOTO = "/profile-icon.png";
 
 const certifications = [
   { name: "応用情報技術者試験", abbr: "AP", color: "#58a6ff" },
@@ -138,7 +138,7 @@ export default function AboutSection() {
                   <div>
                     <span className="text-[#bc8cff]">"role"</span>
                     <span className="text-[#e6edf3]">: </span>
-                    <span className="text-[#a5d6ff]">"Systems Engineer"</span>
+                    <span className="text-[#a5d6ff]">"Backend Engineer"</span>
                     <span className="text-[#e6edf3]">,</span>
                   </div>
                   <div>
