@@ -3,7 +3,7 @@
  * Professional summary with profile photo, terminal-style card layout
  */
 
-import { useEffect, useRef, useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
 const PROFILE_PHOTO = "/profile-icon.png";
 
@@ -11,7 +11,11 @@ const certifications = [
   { name: "応用情報技術者試験", abbr: "AP", color: "#58a6ff" },
   { name: "基本情報技術者試験", abbr: "FE", color: "#3fb950" },
   { name: "AWS Certified Cloud Practitioner", abbr: "CLF", color: "#e3b341" },
-  { name: "AWS Certified Solutions Architect - Associate", abbr: "SAA", color: "#f78166" },
+  {
+    name: "AWS Certified Solutions Architect - Associate",
+    abbr: "SAA",
+    color: "#f78166",
+  },
 ];
 
 const highlights = [
@@ -41,33 +45,51 @@ const highlights = [
   },
 ];
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeLeft: Variants = {
+  hidden: { opacity: 0, x: -24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeRight: Variants = {
+  hidden: { opacity: 0, x: 24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const viewport = { once: true, margin: "-80px" };
+
 export default function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="py-24 bg-[#0d1117]"
-    >
+    <section id="about" className="py-24 bg-[#0d1117]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div
-          className={`mb-16 transition-all duration-700 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <p className="text-[#3fb950] font-mono text-sm tracking-widest uppercase mb-2">
             // 01. about
@@ -76,14 +98,16 @@ export default function AboutSection() {
             About Me
           </h2>
           <div className="mt-3 h-px w-16 bg-gradient-to-r from-[#58a6ff] to-transparent" />
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Left: Profile photo + card */}
-          <div
-            className={`lg:col-span-2 transition-all duration-700 delay-200 ${
-              visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-            }`}
+          <motion.div
+            className="lg:col-span-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={fadeLeft}
           >
             {/* Profile Photo */}
             <div className="mb-6 flex flex-col items-center sm:items-start">
@@ -108,12 +132,18 @@ export default function AboutSection() {
                 {/* Status badge */}
                 <div className="absolute -bottom-2 -right-2 flex items-center gap-1.5 bg-[#161b22] border border-[#30363d] rounded-full px-3 py-1">
                   <div className="w-2 h-2 rounded-full bg-[#3fb950] animate-pulse" />
-                  <span className="text-[#3fb950] font-mono text-xs">Available</span>
+                  <span className="text-[#3fb950] font-mono text-xs">
+                    Available
+                  </span>
                 </div>
               </div>
               <div className="mt-5 text-center sm:text-left">
-                <p className="text-[#e6edf3] font-mono font-bold text-lg">Toji Inoue</p>
-                <p className="text-[#8b949e] font-mono text-sm mt-0.5">井上 登司</p>
+                <p className="text-[#e6edf3] font-mono font-bold text-lg">
+                  Toji Inoue
+                </p>
+                <p className="text-[#8b949e] font-mono text-sm mt-0.5">
+                  井上 登司
+                </p>
               </div>
             </div>
 
@@ -177,7 +207,9 @@ export default function AboutSection() {
                       <span className="text-[#e6edf3]">,</span>
                     </div>
                     <div className="pl-4">
-                      <span className="text-[#a5d6ff]">"Community Building"</span>
+                      <span className="text-[#a5d6ff]">
+                        "Community Building"
+                      </span>
                     </div>
                     <span className="text-[#e6edf3]">]</span>
                   </div>
@@ -192,7 +224,7 @@ export default function AboutSection() {
                 // certifications
               </p>
               <div className="space-y-2">
-                {certifications.map((cert) => (
+                {certifications.map(cert => (
                   <div
                     key={cert.abbr}
                     className="flex items-center gap-3 bg-[#161b22] border border-[#30363d] rounded px-4 py-2.5"
@@ -212,13 +244,15 @@ export default function AboutSection() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Highlights */}
-          <div
-            className={`lg:col-span-3 transition-all duration-700 delay-300 ${
-              visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-            }`}
+          <motion.div
+            className="lg:col-span-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={fadeRight}
           >
             <div className="mb-8">
               <p className="text-[#e6edf3] text-base leading-relaxed">
@@ -234,20 +268,27 @@ export default function AboutSection() {
             </div>
 
             {/* Highlight cards */}
-            <div className="grid sm:grid-cols-2 gap-4">
+            <motion.div
+              className="grid sm:grid-cols-2 gap-4"
+              variants={stagger}
+            >
               {highlights.map((item, i) => (
-                <div
+                <motion.div
                   key={item.title}
                   className="bg-[#161b22] border border-[#30363d] rounded-lg p-5 hover:border-opacity-60 transition-all duration-200 group"
+                  variants={fadeUp}
                   style={{
                     transitionDelay: `${i * 100}ms`,
                   }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = item.color + "60";
-                    (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${item.color}10`;
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor =
+                      item.color + "60";
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      `0 0 20px ${item.color}10`;
                   }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#30363d";
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor =
+                      "#30363d";
                     (e.currentTarget as HTMLElement).style.boxShadow = "none";
                   }}
                 >
@@ -261,10 +302,10 @@ export default function AboutSection() {
                   <p className="text-[#8b949e] text-sm leading-relaxed">
                     {item.desc}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

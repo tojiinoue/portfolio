@@ -3,7 +3,7 @@
  * Freelance services with terminal-style cards
  */
 
-import { useEffect, useRef, useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
 const services = [
   {
@@ -48,34 +48,37 @@ const services = [
   },
 ];
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const viewport = { once: true, margin: "-80px" };
+
 export default function ServicesSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="services"
-      ref={sectionRef}
       className="py-24 bg-[#0d1117]"
       style={{ borderTop: "1px solid #21262d" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div
-          className={`mb-16 transition-all duration-700 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <p className="text-[#3fb950] font-mono text-sm tracking-widest uppercase mb-2">
             // 05. services
@@ -87,25 +90,29 @@ export default function ServicesSection() {
           <p className="mt-4 text-[#8b949e] text-sm">
             AI駆動開発の知見を活かし、チームの開発効率向上を支援します。
           </p>
-        </div>
+        </motion.div>
 
         {/* Service cards */}
-        <div
-          className={`grid sm:grid-cols-2 gap-6 mb-12 transition-all duration-700 delay-200 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="grid sm:grid-cols-2 gap-6 mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={stagger}
         >
           {services.map((service, i) => (
-            <div
+            <motion.div
               key={service.title}
               className="bg-[#161b22] border border-[#30363d] rounded-lg p-6 transition-all duration-200"
+              variants={fadeUp}
               style={{ transitionDelay: `${i * 100}ms` }}
-              onMouseEnter={(e) => {
+              onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.borderColor =
                   service.color + "60";
-                (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${service.color}10`;
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  `0 0 20px ${service.color}10`;
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.borderColor = "#30363d";
                 (e.currentTarget as HTMLElement).style.boxShadow = "none";
               }}
@@ -113,7 +120,9 @@ export default function ServicesSection() {
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4">
                 <div className="min-w-0">
-                  <div className="text-2xl mb-2" aria-hidden="true">{service.icon}</div>
+                  <div className="text-2xl mb-2" aria-hidden="true">
+                    {service.icon}
+                  </div>
                   <h3
                     className="font-mono font-bold text-base"
                     style={{ color: service.color }}
@@ -143,7 +152,7 @@ export default function ServicesSection() {
 
               {/* Tags */}
               <div className="flex flex-wrap gap-1.5">
-                {service.tags.map((tag) => (
+                {service.tags.map(tag => (
                   <span
                     key={tag}
                     className="text-xs font-mono px-1.5 py-0.5 bg-[#1c2128] border border-[#30363d] rounded text-[#8b949e]"
@@ -152,15 +161,17 @@ export default function ServicesSection() {
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA */}
-        <div
-          className={`text-center transition-all duration-700 delay-500 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <a
             href="#contact"
@@ -168,7 +179,7 @@ export default function ServicesSection() {
           >
             $ contact me →
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

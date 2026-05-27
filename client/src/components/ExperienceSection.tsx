@@ -3,7 +3,7 @@
  * Work experience with terminal-style timeline
  */
 
-import { useEffect, useRef, useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
 const experiences = [
   {
@@ -41,9 +41,17 @@ const academicExperiences = [
     color: "#bc8cff",
     items: [
       {
-        title: "Web3トークン配布システムにおける報酬が学習意欲に及ぼす影響の研究",
+        title:
+          "Web3トークン配布システムにおける報酬が学習意欲に及ぼす影響の研究",
         desc: "ブロックチェーン（Polygon）とスマートコントラクトを活用した授業用トークン配布システムを改修・運用。実際の講義（情報理論）に導入し、38名の学生データを収集。因果推論（傾向スコアマッチング）を用いて、Web3報酬型ゲーミフィケーションが学習意欲・成績に与える効果を定量的に評価・分析した。",
-        tags: ["Web3", "Blockchain", "Polygon", "因果推論", "データ分析", "MetaMask"],
+        tags: [
+          "Web3",
+          "Blockchain",
+          "Polygon",
+          "因果推論",
+          "データ分析",
+          "MetaMask",
+        ],
       },
     ],
   },
@@ -80,34 +88,37 @@ const businessExperiences = [
   },
 ];
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const viewport = { once: true, margin: "-80px" };
+
 export default function ExperienceSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="experience"
-      ref={sectionRef}
       className="py-24 bg-[#0d1117]"
       style={{ borderTop: "1px solid #21262d" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div
-          className={`mb-16 transition-all duration-700 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <p className="text-[#3fb950] font-mono text-sm tracking-widest uppercase mb-2">
             // 03. experience
@@ -116,15 +127,17 @@ export default function ExperienceSection() {
             Work Experience
           </h2>
           <div className="mt-3 h-px w-16 bg-gradient-to-r from-[#58a6ff] to-transparent" />
-        </div>
+        </motion.div>
 
         {/* Professional Experience */}
-        <div
-          className={`mb-16 transition-all duration-700 delay-200 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
-          {experiences.map((exp) => (
+          {experiences.map(exp => (
             <div key={exp.company} className="relative">
               {/* Timeline line */}
               <div className="absolute left-0 top-0 bottom-0 w-px bg-[#30363d] ml-4 hidden sm:block" />
@@ -165,11 +178,12 @@ export default function ExperienceSection() {
                 </div>
 
                 {/* Projects */}
-                <div className="space-y-4">
+                <motion.div className="space-y-4" variants={stagger}>
                   {exp.items.map((item, i) => (
-                    <div
+                    <motion.div
                       key={item.title}
                       className="bg-[#161b22] border border-[#30363d] rounded-lg p-5 hover:border-[#58a6ff]/30 transition-all duration-200"
+                      variants={fadeUp}
                       style={{ transitionDelay: `${i * 100}ms` }}
                     >
                       <div className="flex items-start gap-3">
@@ -184,7 +198,7 @@ export default function ExperienceSection() {
                             {item.desc}
                           </p>
                           <div className="flex flex-wrap gap-2">
-                            {item.tags.map((tag) => (
+                            {item.tags.map(tag => (
                               <span
                                 key={tag}
                                 className="text-xs font-mono px-2 py-0.5 bg-[#1c2128] border border-[#30363d] rounded text-[#8b949e]"
@@ -195,24 +209,26 @@ export default function ExperienceSection() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Academic Research Experience */}
-        <div
-          className={`mb-16 transition-all duration-700 delay-300 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <h3 className="text-xl font-bold font-mono text-[#e6edf3] mb-6">
             <span className="text-[#bc8cff]">//</span> Academic Research
           </h3>
-          {academicExperiences.map((exp) => (
+          {academicExperiences.map(exp => (
             <div key={exp.institution} className="relative">
               <div className="absolute left-0 top-0 bottom-0 w-px bg-[#30363d] ml-4 hidden sm:block" />
               <div className="sm:pl-12">
@@ -248,20 +264,27 @@ export default function ExperienceSection() {
                     </p>
                   </div>
                 </div>
-                <div className="space-y-4">
+                <motion.div className="space-y-4" variants={stagger}>
                   {exp.items.map((item, i) => (
-                    <div
+                    <motion.div
                       key={item.title}
                       className="bg-[#161b22] border border-[#30363d] rounded-lg p-5 hover:border-[#bc8cff]/30 transition-all duration-200"
+                      variants={fadeUp}
                       style={{ transitionDelay: `${i * 100}ms` }}
                     >
                       <div className="flex items-start gap-3">
-                        <span className="text-[#bc8cff] font-mono text-sm mt-0.5 shrink-0">▶</span>
+                        <span className="text-[#bc8cff] font-mono text-sm mt-0.5 shrink-0">
+                          ▶
+                        </span>
                         <div>
-                          <h4 className="text-[#e6edf3] font-mono font-bold text-sm mb-2">{item.title}</h4>
-                          <p className="text-[#8b949e] text-sm leading-relaxed mb-3">{item.desc}</p>
+                          <h4 className="text-[#e6edf3] font-mono font-bold text-sm mb-2">
+                            {item.title}
+                          </h4>
+                          <p className="text-[#8b949e] text-sm leading-relaxed mb-3">
+                            {item.desc}
+                          </p>
                           <div className="flex flex-wrap gap-2">
-                            {item.tags.map((tag) => (
+                            {item.tags.map(tag => (
                               <span
                                 key={tag}
                                 className="text-xs font-mono px-2 py-0.5 bg-[#1c2128] border border-[#30363d] rounded text-[#8b949e]"
@@ -272,33 +295,38 @@ export default function ExperienceSection() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Business & Creative Experience */}
-        <div
-          className={`transition-all duration-700 delay-400 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <h3 className="text-xl font-bold font-mono text-[#e6edf3] mb-6">
-            <span className="text-[#bc8cff]">//</span> Business & Creative Experience
+            <span className="text-[#bc8cff]">//</span> Business & Creative
+            Experience
           </h3>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {businessExperiences.map((exp) => (
-              <div
+          <motion.div className="grid sm:grid-cols-2 gap-4" variants={stagger}>
+            {businessExperiences.map(exp => (
+              <motion.div
                 key={exp.title}
                 className="bg-[#161b22] border border-[#30363d] rounded-lg p-5 hover:border-opacity-60 transition-all duration-200"
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = exp.color + "50";
+                variants={fadeUp}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor =
+                    exp.color + "50";
                 }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "#30363d";
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor =
+                    "#30363d";
                 }}
               >
                 <div className="flex items-start gap-3">
@@ -318,10 +346,10 @@ export default function ExperienceSection() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

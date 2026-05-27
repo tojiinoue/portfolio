@@ -3,7 +3,7 @@
  * Contact links with terminal-style layout
  */
 
-import { useEffect, useRef, useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
 const contactLinks = [
   // {
@@ -37,8 +37,18 @@ const contactLinks = [
     handle: "https://kanjikun.com/",
     url: "https://www.kanjikun.com/",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+        />
       </svg>
     ),
     color: "#58a6ff",
@@ -49,8 +59,18 @@ const contactLinks = [
     handle: "toji0813@gmail.com",
     url: "mailto:toji0813@gmail.com",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        />
       </svg>
     ),
     color: "#f78166",
@@ -58,35 +78,56 @@ const contactLinks = [
   },
 ];
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeLeft: Variants = {
+  hidden: { opacity: 0, x: -24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeRight: Variants = {
+  hidden: { opacity: 0, x: 24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const viewport = { once: true, margin: "-80px" };
+
 export default function ContactSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
       <section
         id="contact"
-        ref={sectionRef}
         className="py-24 bg-[#0d1117]"
         style={{ borderTop: "1px solid #21262d" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
-          <div
-            className={`mb-16 transition-all duration-700 ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+          <motion.div
+            className="mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={fadeUp}
           >
             <p className="text-[#3fb950] font-mono text-sm tracking-widest uppercase mb-2">
               // 07. contact
@@ -95,14 +136,15 @@ export default function ContactSection() {
               Get In Touch
             </h2>
             <div className="mt-3 h-px w-16 bg-gradient-to-r from-[#58a6ff] to-transparent" />
-          </div>
+          </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Left: Message */}
-            <div
-              className={`transition-all duration-700 delay-200 ${
-                visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-              }`}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewport}
+              variants={fadeLeft}
             >
               <div className="bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
                 {/* Terminal title bar */}
@@ -120,7 +162,9 @@ export default function ContactSection() {
                   <div className="space-y-3">
                     <div>
                       <span className="text-[#3fb950]">$ </span>
-                      <span className="text-[#e6edf3]">echo "お気軽にどうぞ"</span>
+                      <span className="text-[#e6edf3]">
+                        echo "お気軽にどうぞ"
+                      </span>
                     </div>
                     <div className="text-[#8b949e] pl-4">
                       技術的な話、キャリア相談、コラボレーションなど、
@@ -133,16 +177,20 @@ export default function ContactSection() {
                     </div>
                     <div className="text-[#8b949e] pl-4 space-y-1">
                       <div>
-                        <span className="text-[#58a6ff]">→</span> AI × 仕様駆動開発の実践
+                        <span className="text-[#58a6ff]">→</span> AI ×
+                        仕様駆動開発の実践
                       </div>
                       <div>
-                        <span className="text-[#58a6ff]">→</span> バックエンド開発
+                        <span className="text-[#58a6ff]">→</span>{" "}
+                        バックエンド開発
                       </div>
                       <div>
-                        <span className="text-[#58a6ff]">→</span> 業務効率化・自動化
+                        <span className="text-[#58a6ff]">→</span>{" "}
+                        業務効率化・自動化
                       </div>
                       <div>
-                        <span className="text-[#58a6ff]">→</span> コミュニティ・イベント企画
+                        <span className="text-[#58a6ff]">→</span>{" "}
+                        コミュニティ・イベント企画
                       </div>
                     </div>
                     <div>
@@ -152,28 +200,33 @@ export default function ContactSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right: Links */}
-            <div
-              className={`transition-all duration-700 delay-400 ${
-                visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-              }`}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewport}
+              variants={fadeRight}
             >
-              <div className="space-y-4">
-                {contactLinks.map((link) => (
-                  <a
+              <motion.div className="space-y-4" variants={stagger}>
+                {contactLinks.map(link => (
+                  <motion.a
                     key={link.label}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 bg-[#161b22] border border-[#30363d] rounded-lg p-5 hover:border-opacity-60 transition-all duration-200 group"
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = link.color + "60";
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${link.color}10`;
+                    variants={fadeUp}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor =
+                        link.color + "60";
+                      (e.currentTarget as HTMLElement).style.boxShadow =
+                        `0 0 20px ${link.color}10`;
                     }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "#30363d";
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor =
+                        "#30363d";
                       (e.currentTarget as HTMLElement).style.boxShadow = "none";
                     }}
                   >
@@ -213,10 +266,10 @@ export default function ContactSection() {
                         d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                       />
                     </svg>
-                  </a>
+                  </motion.a>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -227,7 +280,9 @@ export default function ContactSection() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <span className="text-[#3fb950] font-mono text-sm">~/</span>
-              <span className="text-[#e6edf3] font-mono font-bold">toji_inoue</span>
+              <span className="text-[#e6edf3] font-mono font-bold">
+                toji_inoue
+              </span>
             </div>
             <p className="text-[#8b949e] font-mono text-xs text-center">
               © 2026 Toji Inoue. Built with{" "}
