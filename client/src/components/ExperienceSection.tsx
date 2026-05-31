@@ -8,7 +8,7 @@ import { motion, type Variants } from "framer-motion";
 const experiences = [
   {
     period: "2025.04 〜 現在",
-    company: "株式会社パソナ",
+    company: "大手人材グループ（IT事業部）",
     role: "バックエンドエンジニア（新卒2年目）",
     type: "FULL-TIME",
     color: "#58a6ff",
@@ -35,7 +35,7 @@ const experiences = [
 const academicExperiences = [
   {
     period: "2024.04 〜 2025.01",
-    institution: "千葉工業大学 藤原研究室",
+    institution: "某工業大学 情報系研究室",
     role: "卒業研究員",
     type: "RESEARCH",
     color: "#bc8cff",
