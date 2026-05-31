@@ -3,9 +3,7 @@
  * Technical skills with code-editor syntax highlighting aesthetic
  */
 
-import { useEffect, useRef, useState } from "react";
-
-
+import { motion, type Variants } from "framer-motion";
 
 const skillCategories = [
   {
@@ -50,27 +48,81 @@ const skillCategories = [
 ];
 
 const techTags = [
-  "PHP", "Laravel", "Python", "FastAPI", "Django", "Ruby", "Rails",
-  "pandas", "GA4", "AWS", "S3", "EC2", "CloudFront", "Vercel",
-  "cc-sdd", "GitHub Copilot", "NotebookLM", "OpenAI Codex",
-  "Next.js", "TypeScript", "Prisma",
+  "PHP",
+  "Laravel",
+  "Python",
+  "FastAPI",
+  "Django",
+  "Ruby",
+  "Rails",
+  "pandas",
+  "GA4",
+  "AWS",
+  "S3",
+  "EC2",
+  "CloudFront",
+  "Vercel",
+  "cc-sdd",
+  "GitHub Copilot",
+  "NotebookLM",
+  "OpenAI Codex",
+  "Next.js",
+  "TypeScript",
+  "Prisma",
 ];
 
-function SkillBar({ name, level, color, visible }: { name: string; level: number; color: string; visible: boolean }) {
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeRight: Variants = {
+  hidden: { opacity: 0, x: 24 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const viewport = { once: true, margin: "-80px" };
+
+function SkillBar({
+  name,
+  level,
+  color,
+}: {
+  name: string;
+  level: number;
+  color: string;
+}) {
   return (
     <div className="mb-3">
       <div className="flex justify-between items-center mb-1">
         <span className="text-[#e6edf3] text-sm font-mono">{name}</span>
-        <span className="text-xs font-mono" style={{ color }}>{level}%</span>
+        <span className="text-xs font-mono" style={{ color }}>
+          {level}%
+        </span>
       </div>
       <div className="h-1.5 bg-[#30363d] rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full transition-all duration-1500 ease-out"
+        <motion.div
+          className="h-full rounded-full"
+          initial={{ width: "0%" }}
+          whileInView={{ width: `${level}%` }}
+          viewport={viewport}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            width: visible ? `${level}%` : "0%",
             backgroundColor: color,
             boxShadow: `0 0 8px ${color}60`,
-            transitionDuration: "1.5s",
           }}
         />
       </div>
@@ -79,32 +131,16 @@ function SkillBar({ name, level, color, visible }: { name: string; level: number
 }
 
 export default function SkillsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
-      id="skills"
-      ref={sectionRef}
-      className="py-24 bg-[#0d1117]"
-    >
+    <section id="skills" className="py-24 bg-[#0d1117]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div
-          className={`mb-16 transition-all duration-700 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <p className="text-[#3fb950] font-mono text-sm tracking-widest uppercase mb-2">
             // 02. skills
@@ -113,20 +149,26 @@ export default function SkillsSection() {
             Technical Skills
           </h2>
           <div className="mt-3 h-px w-16 bg-gradient-to-r from-[#58a6ff] to-transparent" />
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Skill bars */}
-          <div
-            className={`lg:col-span-2 transition-all duration-700 delay-200 ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+          <motion.div
+            className="lg:col-span-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={fadeUp}
           >
-            <div className="grid sm:grid-cols-2 gap-6">
-              {skillCategories.map((cat) => (
-                <div
+            <motion.div
+              className="grid sm:grid-cols-2 gap-6"
+              variants={stagger}
+            >
+              {skillCategories.map(cat => (
+                <motion.div
                   key={cat.category}
                   className="bg-[#161b22] border border-[#30363d] rounded-lg p-5"
+                  variants={fadeUp}
                 >
                   <div className="flex items-center gap-2 mb-4">
                     <span className="text-lg">{cat.icon}</span>
@@ -137,18 +179,17 @@ export default function SkillsSection() {
                       {cat.category}
                     </h3>
                   </div>
-                  {cat.skills.map((skill) => (
+                  {cat.skills.map(skill => (
                     <SkillBar
                       key={skill.name}
                       name={skill.name}
                       level={skill.level}
                       color={cat.color}
-                      visible={visible}
                     />
                   ))}
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Tech tags */}
             <div className="mt-6 bg-[#161b22] border border-[#30363d] rounded-lg p-5">
@@ -156,7 +197,7 @@ export default function SkillsSection() {
                 // tech stack
               </p>
               <div className="flex flex-wrap gap-2">
-                {techTags.map((tag) => (
+                {techTags.map(tag => (
                   <span
                     key={tag}
                     className="px-2.5 py-1 bg-[#1c2128] border border-[#30363d] rounded text-xs font-mono text-[#8b949e] hover:text-[#58a6ff] hover:border-[#58a6ff]/40 transition-colors cursor-default"
@@ -166,13 +207,14 @@ export default function SkillsSection() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Code snippet card */}
-          <div
-            className={`transition-all duration-700 delay-400 ${
-              visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-            }`}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={fadeRight}
           >
             {/* Code snippet */}
             <div className="bg-[#161b22] border border-[#30363d] rounded-lg overflow-hidden">
@@ -182,22 +224,73 @@ export default function SkillsSection() {
                   <div className="w-3 h-3 rounded-full bg-[#e3b341]" />
                   <div className="w-3 h-3 rounded-full bg-[#3fb950]" />
                 </div>
-                <span className="text-[#8b949e] font-mono text-xs ml-2">recommend.py</span>
+                <span className="text-[#8b949e] font-mono text-xs ml-2">
+                  recommend.py
+                </span>
               </div>
               <div className="p-5 font-mono text-xs leading-relaxed">
-                <div><span className="text-[#bc8cff]">from</span> <span className="text-[#a5d6ff]">fastapi</span> <span className="text-[#bc8cff]">import</span> <span className="text-[#e6edf3]">FastAPI</span></div>
-                <div><span className="text-[#bc8cff]">import</span> <span className="text-[#a5d6ff]">pandas</span> <span className="text-[#bc8cff]">as</span> <span className="text-[#e6edf3]">pd</span></div>
-                <div className="mt-3"><span className="text-[#8b949e]"># GA4ログを取得・集計</span></div>
-                <div><span className="text-[#bc8cff]">def</span> <span className="text-[#3fb950]">get_recommendations</span><span className="text-[#e6edf3]">(</span><span className="text-[#e3b341]">user_id</span><span className="text-[#e6edf3]">: str):</span></div>
-                <div className="pl-4"><span className="text-[#e6edf3]">df = </span><span className="text-[#a5d6ff]">ga4_client</span><span className="text-[#e6edf3]">.fetch_logs(</span></div>
-                <div className="pl-8"><span className="text-[#e6edf3]">user_id=user_id</span></div>
-                <div className="pl-4"><span className="text-[#e6edf3]">)</span></div>
-                <div className="pl-4"><span className="text-[#8b949e]"># pandasで前処理</span></div>
-                <div className="pl-4"><span className="text-[#e6edf3]">result = df</span></div>
-                <div className="pl-6"><span className="text-[#e6edf3]">.groupby(</span><span className="text-[#a5d6ff]">'item_id'</span><span className="text-[#e6edf3]">)</span></div>
-                <div className="pl-6"><span className="text-[#e6edf3]">.agg(</span><span className="text-[#a5d6ff]">'count'</span><span className="text-[#e6edf3]">)</span></div>
-                <div className="pl-6"><span className="text-[#e6edf3]">.sort_values(ascending=</span><span className="text-[#3fb950]">False</span><span className="text-[#e6edf3]">)</span></div>
-                <div className="pl-4"><span className="text-[#bc8cff]">return</span> <span className="text-[#e6edf3]">result.head(</span><span className="text-[#3fb950]">10</span><span className="text-[#e6edf3]">)</span></div>
+                <div>
+                  <span className="text-[#bc8cff]">from</span>{" "}
+                  <span className="text-[#a5d6ff]">fastapi</span>{" "}
+                  <span className="text-[#bc8cff]">import</span>{" "}
+                  <span className="text-[#e6edf3]">FastAPI</span>
+                </div>
+                <div>
+                  <span className="text-[#bc8cff]">import</span>{" "}
+                  <span className="text-[#a5d6ff]">pandas</span>{" "}
+                  <span className="text-[#bc8cff]">as</span>{" "}
+                  <span className="text-[#e6edf3]">pd</span>
+                </div>
+                <div className="mt-3">
+                  <span className="text-[#8b949e]"># GA4ログを取得・集計</span>
+                </div>
+                <div>
+                  <span className="text-[#bc8cff]">def</span>{" "}
+                  <span className="text-[#3fb950]">get_recommendations</span>
+                  <span className="text-[#e6edf3]">(</span>
+                  <span className="text-[#e3b341]">user_id</span>
+                  <span className="text-[#e6edf3]">: str):</span>
+                </div>
+                <div className="pl-4">
+                  <span className="text-[#e6edf3]">df = </span>
+                  <span className="text-[#a5d6ff]">ga4_client</span>
+                  <span className="text-[#e6edf3]">.fetch_logs(</span>
+                </div>
+                <div className="pl-8">
+                  <span className="text-[#e6edf3]">user_id=user_id</span>
+                </div>
+                <div className="pl-4">
+                  <span className="text-[#e6edf3]">)</span>
+                </div>
+                <div className="pl-4">
+                  <span className="text-[#8b949e]"># pandasで前処理</span>
+                </div>
+                <div className="pl-4">
+                  <span className="text-[#e6edf3]">result = df</span>
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#e6edf3]">.groupby(</span>
+                  <span className="text-[#a5d6ff]">'item_id'</span>
+                  <span className="text-[#e6edf3]">)</span>
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#e6edf3]">.agg(</span>
+                  <span className="text-[#a5d6ff]">'count'</span>
+                  <span className="text-[#e6edf3]">)</span>
+                </div>
+                <div className="pl-6">
+                  <span className="text-[#e6edf3]">
+                    .sort_values(ascending=
+                  </span>
+                  <span className="text-[#3fb950]">False</span>
+                  <span className="text-[#e6edf3]">)</span>
+                </div>
+                <div className="pl-4">
+                  <span className="text-[#bc8cff]">return</span>{" "}
+                  <span className="text-[#e6edf3]">result.head(</span>
+                  <span className="text-[#3fb950]">10</span>
+                  <span className="text-[#e6edf3]">)</span>
+                </div>
               </div>
             </div>
 
@@ -211,7 +304,7 @@ export default function SkillsSection() {
                 AI駆動開発支援・副業案件の受付中。
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

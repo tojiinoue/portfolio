@@ -3,9 +3,10 @@
  * Personal projects with terminal-style cards
  */
 
-import { useEffect, useRef, useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
-const KANJIKUN_IMG = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663371715815/WhHYPTAtYBRSvNbh.png";
+const KANJIKUN_IMG =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663371715815/WhHYPTAtYBRSvNbh.png";
 
 const projects = [
   {
@@ -15,7 +16,14 @@ const projects = [
     description:
       "cc-sdd × OpenAI Codexを活用した仕様駆動開発で爆速リリース。日程調整から出欠管理、会計、支払申請・承認まで一気通貫で管理できる幹事向けサービス。参加者はログイン不要でURLから操作可能。",
     image: KANJIKUN_IMG,
-    tags: ["TypeScript", "Next.js", "Prisma", "Vercel", "cc-sdd", "OpenAI Codex"],
+    tags: [
+      "TypeScript",
+      "Next.js",
+      "Prisma",
+      "Vercel",
+      "cc-sdd",
+      "OpenAI Codex",
+    ],
     links: {
       demo: "https://www.kanjikun.com/",
       github: "https://github.com/tojiinoue/kanjikun",
@@ -31,34 +39,37 @@ const projects = [
   },
 ];
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const viewport = { once: true, margin: "-80px" };
+
 export default function ProjectsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="projects"
-      ref={sectionRef}
       className="py-24 bg-[#0d1117]"
       style={{ borderTop: "1px solid #21262d" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div
-          className={`mb-16 transition-all duration-700 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
         >
           <p className="text-[#3fb950] font-mono text-sm tracking-widest uppercase mb-2">
             // 04. projects
@@ -67,94 +78,105 @@ export default function ProjectsSection() {
             Personal Projects
           </h2>
           <div className="mt-3 h-px w-16 bg-gradient-to-r from-[#58a6ff] to-transparent" />
-        </div>
+        </motion.div>
 
         {/* Featured Project */}
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className={`transition-all duration-700 delay-200 ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <div className="bg-[#161b22] border border-[#30363d] rounded-xl overflow-hidden hover:border-[#58a6ff]/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(88,166,255,0.08)]">
-              <div className="grid lg:grid-cols-2">
-                {/* Image */}
-                <div className="relative overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover min-h-[280px] opacity-100 transition-opacity duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#161b22]/50 hidden lg:block" />
-                  {/* Featured badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#58a6ff]/20 border border-[#58a6ff]/40 text-[#58a6ff]">
-                      ★ FEATURED
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 flex flex-col justify-between">
-                  <div>
-                    {/* Title */}
-                    <div className="mb-4">
-                      <p className="text-[#8b949e] font-mono text-xs mb-1">
-                        // personal project
-                      </p>
-                      <h3 className="text-2xl font-bold font-mono text-[#e6edf3] mb-1">
-                        {project.title}
-                      </h3>
-                      <p className="text-[#58a6ff] font-mono text-sm">
-                        {project.subtitle}
-                      </p>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={stagger}
+        >
+          {projects.map(project => (
+            <motion.div key={project.id} variants={fadeUp}>
+              <div className="bg-[#161b22] border border-[#30363d] rounded-xl overflow-hidden hover:border-[#58a6ff]/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(88,166,255,0.08)]">
+                <div className="grid lg:grid-cols-2">
+                  {/* Image */}
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover min-h-[280px] opacity-100 transition-opacity duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#161b22]/50 hidden lg:block" />
+                    {/* Featured badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#58a6ff]/20 border border-[#58a6ff]/40 text-[#58a6ff]">
+                        ★ FEATURED
+                      </span>
                     </div>
+                  </div>
 
-                    {/* Description */}
-                    <p className="text-[#8b949e] text-sm leading-relaxed mb-5">
-                      {project.description}
-                    </p>
+                  {/* Content */}
+                  <div className="p-8 flex flex-col justify-between">
+                    <div>
+                      {/* Title */}
+                      <div className="mb-4">
+                        <p className="text-[#8b949e] font-mono text-xs mb-1">
+                          // personal project
+                        </p>
+                        <h3 className="text-2xl font-bold font-mono text-[#e6edf3] mb-1">
+                          {project.title}
+                        </h3>
+                        <p className="text-[#58a6ff] font-mono text-sm">
+                          {project.subtitle}
+                        </p>
+                      </div>
 
-                    {/* Highlights */}
-                    <div className="mb-5 space-y-2">
-                      {project.highlights.map((h) => (
-                        <div key={h} className="flex items-start gap-2">
-                          <span className="text-[#3fb950] font-mono text-xs mt-0.5">
-                            ✓
+                      {/* Description */}
+                      <p className="text-[#8b949e] text-sm leading-relaxed mb-5">
+                        {project.description}
+                      </p>
+
+                      {/* Highlights */}
+                      <div className="mb-5 space-y-2">
+                        {project.highlights.map(h => (
+                          <div key={h} className="flex items-start gap-2">
+                            <span className="text-[#3fb950] font-mono text-xs mt-0.5">
+                              ✓
+                            </span>
+                            <span className="text-[#e6edf3] text-sm">{h}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {project.tags.map(tag => (
+                          <span
+                            key={tag}
+                            className="text-xs font-mono px-2 py-0.5 bg-[#1c2128] border border-[#30363d] rounded text-[#8b949e]"
+                          >
+                            {tag}
                           </span>
-                          <span className="text-[#e6edf3] text-sm">{h}</span>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs font-mono px-2 py-0.5 bg-[#1c2128] border border-[#30363d] rounded text-[#8b949e]"
+                    {/* Links */}
+                    <div className="flex flex-wrap gap-3">
+                      <a
+                        href={project.links.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 bg-[#58a6ff] text-[#0d1117] font-mono font-bold text-sm rounded hover:bg-[#79b8ff] transition-colors"
+                      >
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex flex-wrap gap-3">
-                    <a
-                      href={project.links.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-[#58a6ff] text-[#0d1117] font-mono font-bold text-sm rounded hover:bg-[#79b8ff] transition-colors"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                      Live Demo
-                    </a>
-                    {/* <a
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                        Live Demo
+                      </a>
+                      {/* <a
                       href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -165,23 +187,34 @@ export default function ProjectsSection() {
                       </svg>
                       GitHub
                     </a> */}
-                    <a
-                      href={project.links.article}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 border border-[#30363d] text-[#e6edf3] font-mono text-sm rounded hover:border-[#3fb950] hover:text-[#3fb950] transition-colors"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      Zenn 記事
-                    </a>
+                      <a
+                        href={project.links.article}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 border border-[#30363d] text-[#e6edf3] font-mono text-sm rounded hover:border-[#3fb950] hover:text-[#3fb950] transition-colors"
+                      >
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                        Zenn 記事
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
